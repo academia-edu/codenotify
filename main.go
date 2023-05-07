@@ -165,7 +165,7 @@ func githubActionOptions() (*options, error) {
 	}
 
 	cwd := os.Getenv("GITHUB_WORKSPACE")
-	_, err = run("git", "-C", cwd, "-c", "protocol.version=2", "fetch", "--deepen", strconv.Itoa(commitCount))
+	_, err = run("git", "-C", cwd, "-c", "protocol.version=2", "fetch", "--depth", strconv.Itoa(commitCount + 1), "origin", event.PullRequest.Head.Sha)
 	if err != nil {
 		return nil, err
 	}
